@@ -7,7 +7,7 @@
 I wanna work at Stand.  I like what you do, it ties in nicely with my experience in disaster mitigation from OneConcern.  So please give me an offer, okay?  (Unlike a lot of this assignment, this statement is not AI generated).
 
 NOTES:
- I thought deeply about this assignment all week, planned the architecture and tradeoffs carefully, and implemented it in a single focused burst starting Tuesday, 4/29 at around 10:30am - 11am, and 12pm - 4:15pm.
+ I thought deeply about this assignment all week, but I implemented it in a mega-burst on Tuesday, 4/29, starting at around 10:30am - 11am, with a 1hr break, and then 12pm - 4:15pm.  Total: 4 hr 45 min.
 
 
 
