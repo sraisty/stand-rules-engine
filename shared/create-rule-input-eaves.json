@@ -1,0 +1,18 @@
+{
+  "id": "eaves-ember-risk",
+  "name": "Vented Eaves Without Ember Protection",
+  "description": "Vented eaves must have ember-resistant features in fire-prone zones.",
+  "conditions": {
+    "structure.eaves.vented": true,
+    "structure.eaves.emberResistant": false
+  },
+  "riskWeight": 5,
+  "critical": true,
+  "mitigations": [
+    {
+      "name": "Install ember-resistant vents or retrofit eaves",
+      "type": "full",
+      "mitigationValue": 5
+    }
+  ]
+}

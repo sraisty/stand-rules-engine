@@ -1,0 +1,17 @@
+{
+  "id": "overhead-utility-lines",
+  "name": "Overhead Electrical Lines",
+  "description": "Overhead lines increase fire ignition risk near wildland areas.",
+  "conditions": {
+    "utilities.linesUnderground": false
+  },
+  "riskWeight": 3,
+  "critical": false,
+  "mitigations": [
+    {
+      "name": "Clear vegetation under lines or upgrade to insulated conductors",
+      "type": "bridge",
+      "mitigationValue": 3
+    }
+  ]
+}

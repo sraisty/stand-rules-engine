@@ -1,0 +1,121 @@
+{
+  "evaluation": {
+    "propertyId": "PROP-999",
+    "observationId": "OBS-999",
+    "evaluatedAt": "2025-04-30T17:20:00.000Z",
+    "rulesetVersion": "v1",
+    "totalRiskScore": 44,
+    "insurability": "no",
+    "vulnerabilities": [
+      {
+        "ruleId": "roof-fire-risk",
+        "description": "Roof Class C is unacceptable in High Fire Severity zone.",
+        "riskWeight": 7,
+        "critical": true,
+        "mitigations": [
+          {
+            "name": "Replace with Class A fire-rated roof",
+            "type": "full",
+            "mitigationValue": 7
+          }
+        ]
+      },
+      {
+        "ruleId": "vegetation-risk-0",
+        "description": "Non-fire-resistant tree within 30ft of structure.",
+        "riskWeight": 5,
+        "critical": false,
+        "mitigations": [
+          {
+            "name": "Remove tree",
+            "type": "full",
+            "mitigationValue": 5
+          },
+          {
+            "name": "Prune tree and apply fire retardant",
+            "type": "bridge",
+            "mitigationValue": 3
+          }
+        ]
+      },
+      {
+        "ruleId": "deck-fire-risk",
+        "description": "Non-fire-resistant deck material present.",
+        "riskWeight": 4,
+        "critical": false,
+        "mitigations": [
+          {
+            "name": "Replace deck with fire-resistant material",
+            "type": "full",
+            "mitigationValue": 4
+          }
+        ]
+      },
+      {
+        "ruleId": "drought-vegetation-risk",
+        "description": "Defensible space inadequate during drought conditions.",
+        "riskWeight": 6,
+        "critical": false,
+        "mitigations": [
+          {
+            "name": "Expand defensible space to 100ft or more",
+            "type": "bridge",
+            "mitigationValue": 4
+          }
+        ]
+      },
+      {
+        "ruleId": "eaves-ember-risk",
+        "description": "Vented eaves without ember protection.",
+        "riskWeight": 5,
+        "critical": true,
+        "mitigations": [
+          {
+            "name": "Install ember-resistant vents or retrofit eaves",
+            "type": "full",
+            "mitigationValue": 5
+          }
+        ]
+      },
+      {
+        "ruleId": "immediate-defensible-space-risk",
+        "description": "Less than 5ft non-combustible surface around home.",
+        "riskWeight": 6,
+        "critical": true,
+        "mitigations": [
+          {
+            "name": "Clear 5ft non-combustible zone around structure",
+            "type": "full",
+            "mitigationValue": 6
+          }
+        ]
+      },
+      {
+        "ruleId": "hydrant-absent-risk",
+        "description": "No accessible fire hydrant nearby.",
+        "riskWeight": 5,
+        "critical": true,
+        "mitigations": [
+          {
+            "name": "Install private water storage or improve hydrant access",
+            "type": "bridge",
+            "mitigationValue": 5
+          }
+        ]
+      },
+      {
+        "ruleId": "overhead-utility-risk",
+        "description": "Overhead electric lines present, increased fire ignition risk.",
+        "riskWeight": 4,
+        "critical": false,
+        "mitigations": [
+          {
+            "name": "Work with utility provider to harden lines or clear vegetation",
+            "type": "bridge",
+            "mitigationValue": 3
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "non-fire-resistant-tree-close",
+  "name": "Tree Too Close to Structure",
+  "description": "Tree within 30ft that is not fire-resistant increases ignition risk.",
+  "conditions": {
+    "vegetation.plants[*].type": "Tree",
+    "vegetation.plants[*].distanceToStructure": {
+      "lt": 30
+    },
+    "vegetation.plants[*].fireResistant": false
+  },
+  "riskWeight": 4,
+  "critical": false,
+  "mitigations": [
+    {
+      "name": "Remove or replace tree with fire-resistant species",
+      "type": "full",
+      "mitigationValue": 4
+    },
+    {
+      "name": "Prune tree and apply fire retardant",
+      "type": "bridge",
+      "mitigationValue": 2
+    }
+  ]
+}

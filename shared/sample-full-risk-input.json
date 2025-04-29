@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "propertyId": "PROP-999",
+    "address": "456 Ember Lane",
+    "city": "Paradise",
+    "state": "CA",
+    "zip": "95969",
+    "dateOfObservation": "2025-04-30",
+    "observationId": "OBS-999"
+  },
+  "observation": {
+    "location": {
+      "fireSeverity": "High"
+    },
+    "structure": {
+      "constructionYear": 1985,
+      "constructionTypes": [
+        "Wood Frame"
+      ],
+      "squareFeet": 1800,
+      "stories": 2,
+      "roof": {
+        "class": "C",
+        "type": "Wood Shake",
+        "age": 20
+      },
+      "decks": {
+        "present": true,
+        "fireResistant": false
+      },
+      "eaves": {
+        "type": "Open",
+        "vented": true,
+        "emberResistant": false
+      }
+    },
+    "vegetation": {
+      "defensibleSpaceFeet": 30,
+      "defensibleSpaceImmediateFeet": 2,
+      "plants": [
+        {
+          "type": "Tree",
+          "distanceToStructure": 15,
+          "fireResistant": false
+        },
+        {
+          "type": "Shrub",
+          "distanceToStructure": 5,
+          "fireResistant": true
+        }
+      ]
+    },
+    "regionalContext": {
+      "droughtIndex": 4
+    },
+    "waterResources": {
+      "fireHydrant": {
+        "available": false
+      }
+    },
+    "utilities": {
+      "linesUnderground": false
+    }
+  }
+}

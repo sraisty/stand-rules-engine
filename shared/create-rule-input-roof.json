@@ -1,0 +1,21 @@
+{
+  "id": "roof-fire-risk-high-zone",
+  "name": "Roof Class C in High Fire Zone",
+  "description": "Rejects properties with Class C roofs in High Fire Severity Zones.",
+  "conditions": {
+    "location.fireSeverity": [
+      "High",
+      "Extreme"
+    ],
+    "structure.roof.class": "C"
+  },
+  "riskWeight": 7,
+  "critical": true,
+  "mitigations": [
+    {
+      "name": "Replace with Class A fire-rated roof",
+      "type": "full",
+      "mitigationValue": 7
+    }
+  ]
+}
