@@ -174,22 +174,16 @@ To ensure flexibility and extensibility, the rule matching system was inspired b
 
 
 
-### Supported Risk Rules
+### Supported Static Risk Rules  (EXAMPLES)
 
-| Risk Area | Description |
-|-----------|-------------|
-| Roof | Class C in High Fire Zones rejected |
-| Vegetation | Trees < 30ft + not fire-resistant flagged |
-| Decks | Unprotected wood decks flagged |
-| Drought | Inadequate defensible space if drought index high |
-| Eaves | Vented but unprotected eaves flagged |
-| Immediate Perimeter | <5ft non-combustible zone triggers risk |
-| Hydrant | Absence of hydrant increases vulnerability |
-| Utilities | Overhead power lines treated as ignition risk |
+In my riskRules.ts, you can see some examples of more sophisticated static rules that this engine can handle.
+
+All the static rules are currently commented out currently to make it easier this product more demoable.
+
 
 ---
 
-## Evaluate Property vs Rules API
+## Evaluate Property API
 
 ### `POST /api/evaluate`
 
@@ -217,6 +211,13 @@ To ensure flexibility and extensibility, the rule matching system was inspired b
   }
 }
 ```
+
+### Future
+
+* Seprate out creating a subject property from applying a dated observation of that property.
+* GET, DELETE, PUT for the entire subject property
+* POST, GET, PUT, DELETE  /api/evaluate/observation: adding observations to an existing subject property.  Get all observations or just a specific one.
+
 
 ---
 
