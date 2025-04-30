@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { PropertyObservationSchema } from './propertyObservation';
+import {z} from 'zod'
+import {PropertyObservationSchema} from './propertyObservation'
 
 export const PropertyMetadataSchema = z.object({
   propertyId: z.string(),
@@ -8,13 +8,13 @@ export const PropertyMetadataSchema = z.object({
   state: z.string(),
   zip: z.string(),
   dateOfObservation: z.string(),
-  observationId: z.string().optional()
-});
+  observationId: z.string().optional(),
+})
 
 export const FullPropertyInputSchema = z.object({
   metadata: PropertyMetadataSchema,
-  observation: PropertyObservationSchema
-});
+  observation: PropertyObservationSchema,
+})
 
-export type PropertyMetadata = z.infer<typeof PropertyMetadataSchema>;
-export type FullPropertyInput = z.infer<typeof FullPropertyInputSchema>;
+export type PropertyMetadata = z.infer<typeof PropertyMetadataSchema>
+export type FullPropertyInput = z.infer<typeof FullPropertyInputSchema>

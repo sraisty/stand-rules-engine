@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { useApiRequest } from '@/hooks/useApiRequest';
-import RuleSampleSelector from './RuleSampleSelector';
+import {useEffect, useState} from 'react'
+import {useApiRequest} from '@/hooks/useApiRequest'
+import RuleSampleSelector from './RuleSampleSelector'
 
 export default function AdminPage() {
   const {
@@ -10,52 +10,52 @@ export default function AdminPage() {
     response: rulesResponse,
     loading,
     error,
-  } = useApiRequest<{ rules: any[] }>();
+  } = useApiRequest<{rules: any[]}>()
 
-  const { request: addRuleRequest } = useApiRequest();
-  const { request: deleteRuleRequest } = useApiRequest();
+  const {request: addRuleRequest} = useApiRequest()
+  const {request: deleteRuleRequest} = useApiRequest()
 
-  const [ruleJson, setRuleJson] = useState('');
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [ruleJson, setRuleJson] = useState('')
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   useEffect(() => {
     const run = async () => {
-      await fetchRules('/api/admin/rules');
-    };
-    run();
-  }, []);
+      await fetchRules('/api/admin/rules')
+    }
+    run()
+  }, [])
 
   async function handleDeleteRule(id: string) {
     await deleteRuleRequest('/api/admin/rules', {
       method: 'DELETE',
-      body: { id },
-    });
-    fetchRules('/api/admin/rules');
+      body: {id},
+    })
+    fetchRules('/api/admin/rules')
   }
 
   async function handleSubmitRule() {
-    setSubmitError(null);
+    setSubmitError(null)
     try {
-      const parsed = JSON.parse(ruleJson);
+      const parsed = JSON.parse(ruleJson)
       await addRuleRequest('/api/admin/rules', {
         method: 'POST',
         body: parsed,
-      });
-      setRuleJson('');
-      fetchRules('/api/admin/rules');
+      })
+      setRuleJson('')
+      fetchRules('/api/admin/rules')
     } catch (err) {
-      console.error(err);
-      setSubmitError('Invalid JSON or submission failed');
+      console.error(err)
+      setSubmitError('Invalid JSON or submission failed')
     }
   }
 
   const handleDeleteAllRules = async () => {
     if (confirm('Are you sure you want to delete all rules? This action cannot be undone.')) {
-      await deleteRuleRequest('/api/admin/rules', { 
+      await deleteRuleRequest('/api/admin/rules', {
         method: 'DELETE',
-        body: { all: true },
-      });
-      fetchRules('/api/admin/rules');
+        body: {all: true},
+      })
+      fetchRules('/api/admin/rules')
     }
   }
 
@@ -68,38 +68,38 @@ export default function AdminPage() {
         <h2 className="text-lg font-semibold">Add Rule (Paste JSON)</h2>
         <textarea
           className="w-full p-2 border rounded font-mono text-sm min-h-[200px]"
-          placeholder='Paste rule JSON here...'
+          placeholder="Paste rule JSON here..."
           value={ruleJson}
-          onChange={(e) => setRuleJson(e.target.value)}
+          onChange={e => setRuleJson(e.target.value)}
         />
         <div className="flex flex-row gap-4">
-        <button
-          onClick={handleSubmitRule}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          ➕ Submit Rule
-        </button>
-        {/* <button
+          <button
+            onClick={handleSubmitRule}
+            className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+          >
+            ➕ Submit Rule
+          </button>
+          {/* <button
           onClick={handleDeleteAllRules}
-          className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+          className="px-4 py-2 text-white bg-gray-600 rounded hover:bg-gray-700"
         >
           Reset (erase all rules)
         </button> */}
         </div>
-        <RuleSampleSelector onSelect={(json) => setRuleJson(json)} />
+        <RuleSampleSelector onSelect={json => setRuleJson(json)} />
         {submitError && <p className="text-red-600">{submitError}</p>}
       </div>
 
       {/* Rule List */}
       <div>
-        <h2 className="text-lg font-semibold mt-6 mb-2">Current Rules</h2>
+        <h2 className="mt-6 mb-2 text-lg font-semibold">Current Rules</h2>
         {loading && !rulesResponse && <p>Loading rules...</p>}
         {rulesResponse?.rules?.length === 0 && <p>No rules found.</p>}
         <ul className="space-y-4">
-          {rulesResponse?.rules?.map((rule) => (
+          {rulesResponse?.rules?.map(rule => (
             <li
               key={rule.id}
-              className="p-4 border rounded bg-gray-100 flex justify-between items-start"
+              className="flex items-start justify-between p-4 bg-gray-100 border rounded"
             >
               <div>
                 <h3 className="font-semibold">{rule.name || rule.id}</h3>
@@ -107,7 +107,7 @@ export default function AdminPage() {
               </div>
               <button
                 onClick={() => handleDeleteRule(rule.id)}
-                className="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+                className="px-2 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700"
               >
                 Delete
               </button>
@@ -116,5 +116,5 @@ export default function AdminPage() {
         </ul>
       </div>
     </div>
-  );
+  )
 }

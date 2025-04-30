@@ -1,22 +1,23 @@
-import { PropertyObservation } from '@/lib/schemas/propertyObservation';
-import { dynamicRules } from '@/app/api/admin/rules/route'; // Temporary hack for in-memory rules
-import { matchRule } from '@/lib/engine/dynamicRuleMatcher';
+import {PropertyObservation} from '@/lib/schemas/propertyObservation'
+import {dynamicRules} from '@/app/api/admin/rules/route' // Temporary hack for in-memory rules
+import {matchRule} from '@/lib/engine/dynamicRuleMatcher'
 
 interface Finding {
-  ruleId: string;
-  description: string;
-  riskWeight: number;
-  critical: boolean;
-  mitigations: any[];
+  ruleId: string
+  description: string
+  riskWeight: number
+  critical: boolean
+  mitigations: any[]
 }
 
 // --- Individual Static Risk Evaluators ---
 
 export function evaluateRoofRisk(observation: PropertyObservation): Finding[] {
-  const findings: Finding[] = [];
+  const findings: Finding[] = []
 
   if (
-    (observation.location.fireSeverity === 'High' || observation.location.fireSeverity === 'Extreme') &&
+    (observation.location.fireSeverity === 'High' ||
+      observation.location.fireSeverity === 'Extreme') &&
     observation.structure.roof.class === 'C'
   ) {
     findings.push({
@@ -25,16 +26,16 @@ export function evaluateRoofRisk(observation: PropertyObservation): Finding[] {
       riskWeight: 7,
       critical: true,
       mitigations: [
-        { name: 'Replace with Class A fire-rated roof', type: 'full', mitigationValue: 7 }
-      ]
-    });
+        {name: 'Replace with Class A fire-rated roof', type: 'full', mitigationValue: 7},
+      ],
+    })
   }
 
-  return findings;
+  return findings
 }
 
 export function evaluateVegetationRisk(observation: PropertyObservation): Finding[] {
-  const findings: Finding[] = [];
+  const findings: Finding[] = []
 
   observation.vegetation.plants.forEach((plant, index) => {
     if (plant.type === 'Tree' && plant.distanceToStructure < 30 && !plant.fireResistant) {
@@ -44,18 +45,18 @@ export function evaluateVegetationRisk(observation: PropertyObservation): Findin
         riskWeight: 5,
         critical: false,
         mitigations: [
-          { name: 'Remove tree', type: 'full', mitigationValue: 5 },
-          { name: 'Prune tree and apply fire retardant', type: 'bridge', mitigationValue: 3 }
-        ]
-      });
+          {name: 'Remove tree', type: 'full', mitigationValue: 5},
+          {name: 'Prune tree and apply fire retardant', type: 'bridge', mitigationValue: 3},
+        ],
+      })
     }
-  });
+  })
 
-  return findings;
+  return findings
 }
 
 export function evaluateDeckRisk(observation: PropertyObservation): Finding[] {
-  const findings: Finding[] = [];
+  const findings: Finding[] = []
 
   if (observation.structure.decks?.present && !observation.structure.decks.fireResistant) {
     findings.push({
@@ -64,36 +65,39 @@ export function evaluateDeckRisk(observation: PropertyObservation): Finding[] {
       riskWeight: 4,
       critical: false,
       mitigations: [
-        { name: 'Replace deck with fire-resistant material', type: 'full', mitigationValue: 4 }
-      ]
-    });
+        {name: 'Replace deck with fire-resistant material', type: 'full', mitigationValue: 4},
+      ],
+    })
   }
 
-  return findings;
+  return findings
 }
 
 export function evaluateDroughtVegetationRisk(observation: PropertyObservation): Finding[] {
-  const findings: Finding[] = [];
+  const findings: Finding[] = []
 
   if (observation.regionalContext?.droughtIndex && observation.regionalContext.droughtIndex >= 3) {
-    if (observation.vegetation.defensibleSpaceFeet && observation.vegetation.defensibleSpaceFeet < 100) {
+    if (
+      observation.vegetation.defensibleSpaceFeet &&
+      observation.vegetation.defensibleSpaceFeet < 100
+    ) {
       findings.push({
         ruleId: 'drought-vegetation-risk',
         description: 'Defensible space inadequate during drought conditions.',
         riskWeight: 6,
         critical: false,
         mitigations: [
-          { name: 'Expand defensible space to 100ft or more', type: 'bridge', mitigationValue: 4 }
-        ]
-      });
+          {name: 'Expand defensible space to 100ft or more', type: 'bridge', mitigationValue: 4},
+        ],
+      })
     }
   }
 
-  return findings;
+  return findings
 }
 
 export function evaluateEavesRisk(observation: PropertyObservation): Finding[] {
-  const findings: Finding[] = [];
+  const findings: Finding[] = []
 
   if (observation.structure.eaves?.vented && !observation.structure.eaves?.emberResistant) {
     findings.push({
@@ -102,34 +106,37 @@ export function evaluateEavesRisk(observation: PropertyObservation): Finding[] {
       riskWeight: 5,
       critical: true,
       mitigations: [
-        { name: 'Install ember-resistant vents or retrofit eaves', type: 'full', mitigationValue: 5 }
-      ]
-    });
+        {name: 'Install ember-resistant vents or retrofit eaves', type: 'full', mitigationValue: 5},
+      ],
+    })
   }
 
-  return findings;
+  return findings
 }
 
 export function evaluateImmediateDefensibleSpace(observation: PropertyObservation): Finding[] {
-  const findings: Finding[] = [];
+  const findings: Finding[] = []
 
-  if (observation.vegetation.defensibleSpaceImmediateFeet && observation.vegetation.defensibleSpaceImmediateFeet < 5) {
+  if (
+    observation.vegetation.defensibleSpaceImmediateFeet &&
+    observation.vegetation.defensibleSpaceImmediateFeet < 5
+  ) {
     findings.push({
       ruleId: 'immediate-defensible-space-risk',
       description: 'Less than 5ft non-combustible surface around home.',
       riskWeight: 6,
       critical: true,
       mitigations: [
-        { name: 'Clear 5ft non-combustible zone around structure', type: 'full', mitigationValue: 6 }
-      ]
-    });
+        {name: 'Clear 5ft non-combustible zone around structure', type: 'full', mitigationValue: 6},
+      ],
+    })
   }
 
-  return findings;
+  return findings
 }
 
 export function evaluateHydrantRisk(observation: PropertyObservation): Finding[] {
-  const findings: Finding[] = [];
+  const findings: Finding[] = []
 
   if (!observation.waterResources?.fireHydrant?.available) {
     findings.push({
@@ -138,16 +145,20 @@ export function evaluateHydrantRisk(observation: PropertyObservation): Finding[]
       riskWeight: 5,
       critical: true,
       mitigations: [
-        { name: 'Install private water storage or improve hydrant access', type: 'bridge', mitigationValue: 5 }
-      ]
-    });
+        {
+          name: 'Install private water storage or improve hydrant access',
+          type: 'bridge',
+          mitigationValue: 5,
+        },
+      ],
+    })
   }
 
-  return findings;
+  return findings
 }
 
 export function evaluateUtilityLinesRisk(observation: PropertyObservation): Finding[] {
-  const findings: Finding[] = [];
+  const findings: Finding[] = []
 
   if (observation.utilities?.linesUnderground === false) {
     findings.push({
@@ -156,18 +167,22 @@ export function evaluateUtilityLinesRisk(observation: PropertyObservation): Find
       riskWeight: 4,
       critical: false,
       mitigations: [
-        { name: 'Work with utility provider to harden lines or clear vegetation', type: 'bridge', mitigationValue: 3 }
-      ]
-    });
+        {
+          name: 'Work with utility provider to harden lines or clear vegetation',
+          type: 'bridge',
+          mitigationValue: 3,
+        },
+      ],
+    })
   }
 
-  return findings;
+  return findings
 }
 
 // --- Master Function ---
 
 export function applyRiskRules(observation: PropertyObservation): Finding[] {
-  const findings: Finding[] = [];
+  const findings: Finding[] = []
 
   // // Static Rul
   // findings.push(...evaluateRoofRisk(observation));
@@ -188,9 +203,9 @@ export function applyRiskRules(observation: PropertyObservation): Finding[] {
         riskWeight: rule.riskWeight,
         critical: rule.critical,
         mitigations: rule.mitigations,
-      });
+      })
     }
   }
 
-  return findings;
+  return findings
 }

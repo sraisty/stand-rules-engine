@@ -25,6 +25,9 @@ I didn't finish everything I hoped to:
 * Multi-observation evaluation history
 * Editable rule priorities or weights
 * This README is a bit of a mess. I wanted to write a more clear document about the requirements, architecture and implementaiton.
+* Dynamic rules on't support Logic (AND / OR / NOT) or transform functions that can use observations as inputs, transform into intermediate values and then evaluate
+* No schema validation on Rule Input right now - ran out of time.
+* No "saving" the RulesCollection as on X date, (so that we can rollback to the rule set that was active when a particular observation was made.)
 
 ChatGPT was used extensively, but I figured that was the point.
 
